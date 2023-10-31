@@ -34,7 +34,7 @@ public class SSSPVPStart {
 
         // TODO : Handle/start timer
         timerObject.setInitalTimerSeconds(timer*60);
-        timerObject.setTimer(timer*60);
+        timerObject.setTimerSeconds(timer*60);
         timerObject.setServerTicks(0);
         timerObject.setActive(true);
 
