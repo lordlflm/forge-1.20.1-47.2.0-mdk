@@ -1,26 +1,20 @@
 package mc.lflm.ssspvpfriends.match;
 
-public class Match {
-    private int boxBorderLenght;
-    private int playerAmount;
-    private int timer;
+import mc.lflm.ssspvpfriends.timer.Timer;
+import net.minecraft.server.level.ServerPlayer;
 
+import java.util.List;
+
+public class Match {
+    //static instance
+    public static Match match = new Match();
+    //static Timer instance
+    public static Timer timer = new Timer(false);
+
+    private int boxBorderLenght;
+    private List<ServerPlayer> pList;
 
     public Match(){
-    }
-    public Match(int boxBorderLenght, int playerAmount, int timer) {
-        this.boxBorderLenght = boxBorderLenght;
-        this.playerAmount = playerAmount;
-        this.timer = timer;
-    }
-
-    @Override
-    public String toString() {
-        return "Match{" +
-                "boxBorderLenght=" + boxBorderLenght +
-                ", playerAmount=" + playerAmount +
-                ", timer=" + timer +
-                '}';
     }
 
     public int getBoxBorderLenght() {
@@ -31,19 +25,11 @@ public class Match {
         this.boxBorderLenght = boxBorderLenght;
     }
 
-    public int getPlayerAmount() {
-        return playerAmount;
+    public List<ServerPlayer> getpList() {
+        return pList;
     }
 
-    public void setPlayerAmount(int playerAmount) {
-        this.playerAmount = playerAmount;
-    }
-
-    public int getTimer() {
-        return timer;
-    }
-
-    public void setTimer(int timer) {
-        this.timer = timer;
+    public void setpList(List<ServerPlayer> pList) {
+        this.pList = pList;
     }
 }

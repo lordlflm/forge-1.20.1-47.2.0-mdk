@@ -2,7 +2,7 @@ package mc.lflm.ssspvpfriends.events;
 
 import mc.lflm.ssspvpfriends.SSSPVPFriends;
 import mc.lflm.ssspvpfriends.commands.SSSPVPStart;
-import mc.lflm.ssspvpfriends.timer.Timer;
+import mc.lflm.ssspvpfriends.match.Match;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -15,17 +15,17 @@ public class ModEvents {
     //Register custom command
     @SubscribeEvent
     public static void onCommandRegister(RegisterCommandsEvent event) {
-        new SSSPVPStart(event.getDispatcher(), Timer.timer);
+        new SSSPVPStart(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
     }
 
     //Called every tick
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent event) {
-        if (Timer.timer.isActive()) {
-            Timer.timer.incrementTimer();
-            Timer.timer.timerMessage(event);
-            Timer.timer.resetTimer(event);
+        if (Match.timer.isActive()) {
+            Match.timer.incrementTimer();
+            Match.timer.timerMessage(event);
+            Match.timer.resetTimer(event);
         }
     }
 }
