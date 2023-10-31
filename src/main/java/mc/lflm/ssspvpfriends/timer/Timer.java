@@ -18,8 +18,10 @@ public class Timer {
     //ticks since timer start
     private float serverTicks;
 
+    private float serverTicksSinceWBClosing;
+
     // minute interval between remaining time display in chat (final for now could be optionnalized with a command + setter)
-    final private float intervalMinute = 0.5f;
+    final private float intervalMinute = 10;
 
 
     public Timer() {}
@@ -27,6 +29,18 @@ public class Timer {
     public Timer(boolean isActive) {
         this.isActive = isActive;
         this.serverTicks = 0;
+    }
+
+    public float getServerTicksSinceWBClosing() {
+        return serverTicksSinceWBClosing;
+    }
+
+    public void setServerTicksSinceWBClosing(float serverTicksSinceWBClosing) {
+        this.serverTicksSinceWBClosing = serverTicksSinceWBClosing;
+    }
+
+    public float getIntervalMinute() {
+        return intervalMinute;
     }
 
     public int getInitalTimerSeconds() {
@@ -67,20 +81,28 @@ public class Timer {
     }
 
     public void timerMessage(TickEvent.ServerTickEvent event) {
-        // TODO : Display time remaining every 10 minutes (1min = 1200tick). Make it a settable option?
-        if (Match.timer.getServerTicks() % (1200 * intervalMinute) == 0)
-            // TODO : this should go in all chat (confirm done)
+        if (Match.timer.getServerTicks() % (1200 * intervalMinute) == 0 && !(Match.timer.getTimerSeconds() <= 0))
             ServerMessage.sendAllPlayerMessage(Component.literal(intervalMinute + " minutes has passed. Time left (minutes) : " + (Match.timer.getTimerSeconds() / 60) + ", ticks : " + Match.timer.getServerTicks()), Match.match.getpList());
     }
 
     // TODO : refactor this into reset match?
     public void resetTimer(TickEvent.ServerTickEvent event) {
         if (Match.timer.getTimerSeconds() <= 0) {
-            // TODO : this should go in all chat (confirm done)
-            ServerMessage.sendAllPlayerMessage(Component.literal("Done. " + (Match.timer.getInitalTimerSeconds() / 60) + " minutes passed (" + Match.timer.getInitalTimerSeconds() + " seconds)"), Match.match.getpList());
+            ServerMessage.sendAllPlayerMessage(Component.literal("A tooth is much more to be prized than a diamond.\n―Don Quixote\n\nBe the first team to reach the center of the map (" +
+                    Match.match.getStartCoordinates()[0] + ", " +
+                    Match.match.getStartCoordinates()[1] + ", " +
+                    Match.match.getStartCoordinates()[2] + ")\n\nWorld borders closing in..."),
+                    Match.match.getpList());
             Match.timer = new Timer(false);
+            Match.match.setWorldBorderClosing(true);
+            Match.timer.setServerTicksSinceWBClosing(0);
 
             // TODO : Spawn chest in middle of the box
+
         }
+    }
+
+    public void incrementTicksSinceWBClosing() {
+        Match.timer.setServerTicksSinceWBClosing(Match.timer.getServerTicksSinceWBClosing() + 0.5f);
     }
 }
