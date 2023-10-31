@@ -29,16 +29,18 @@ public class SSSPVPStart {
         // Display some combat starting message and information to all players
         source.sendSystemMessage(Component.literal("The courage of a soldier is heightened by his knowledge of his profession.\n― Flavius Vegetius Renatus\n"));
 
-        // TODO : find player amount
+        // TODO : find player amount for chest loot algorithm (ready chest content)
 
 
         // TODO : Handle/start timer
         timerObject.setInitalTimerSeconds(timer*60);
-        timerObject.setTimer(timer);
+        timerObject.setTimer(timer*60);
         timerObject.setServerTicks(0);
         timerObject.setActive(true);
 
         // TODO : Spawn map borders
+
+
 
 
         // tp players(team) to random locations within the box

@@ -23,12 +23,15 @@ public class ModEvents {
     public static void onServerTick(ServerTickEvent event) {
         if (timer.isActive()) {
             timer.setServerTicks(timer.getServerTicks() + 0.5f);
-            timer.setTimer(timer.getTimer() - 0.000833333333333333333333f/2);
+            timer.setTimer(timer.getTimer() - 0.025f);
+            // TODO : Display time remaining every 10 minutes (1min = 1200tick)
             if (timer.getServerTicks() % 1200 == 0)
-                event.getServer().sendSystemMessage(Component.literal("Another minute has passed. Time left : " + timer.getTimer() + ", ticks : " + timer.getServerTicks()));
+                event.getServer().sendSystemMessage(Component.literal("Another minute has passed. Time left (minutes) : " + (timer.getTimer() / 60) + ", ticks : " + timer.getServerTicks()));
+
             if (timer.getTimer() <= 0) {
+                event.getServer().sendSystemMessage(Component.literal((timer.getInitalTimerSeconds() / 60) + " minutes passees"));
                 timer = new Timer(false);
-                event.getServer().sendSystemMessage(Component.literal(timer.getInitalTimerSeconds() + " minutes passees"));
+                // TODO : Spawn chest in middle of the box
             }
         }
     }

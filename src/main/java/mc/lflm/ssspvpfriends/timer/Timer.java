@@ -6,7 +6,7 @@ public class Timer {
     //this is the second equivalent of the intial timer
     private int initalTimerSeconds;
 
-    //
+    //remaining time in seconds
     private float timer;
     private float serverTicks;
 
