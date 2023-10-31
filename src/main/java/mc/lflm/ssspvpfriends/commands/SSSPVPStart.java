@@ -66,16 +66,18 @@ public class SSSPVPStart {
     }
 
     private static void matchInit(CommandSourceStack source, int boxBorderLenght,List<ServerPlayer> pList) {
-        Match.match.setWorldBorderClosing(false);
-        Match.match.setBoxBorderLenght(boxBorderLenght);
-        Match.match.setpList(pList);
-        Match.match.setWorldBorderRef(source.getLevel().getWorldBorder());
+        Match match = Match.match;
+
+        match.setWorldBorderClosing(false);
+        match.setBoxBorderLenght(boxBorderLenght);
+        match.setpList(pList);
+        match.setWorldBorderRef(source.getLevel().getWorldBorder());
         double[] coord = {
                 Math.ceil(source.getPosition().x),
                 Math.ceil(source.getPosition().y),
                 Math.ceil(source.getPosition().z)
         };
-        Match.match.setStartCoordinates(coord);
+        match.setStartCoordinates(coord);
 
     }
 }

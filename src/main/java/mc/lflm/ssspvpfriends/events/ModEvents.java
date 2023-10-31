@@ -24,17 +24,19 @@ public class ModEvents {
     //Called every tick
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent event) {
-        Timer timer = Match.timer;
-        Match match = Match.match;
+        onTimerActive(event, Match.timer);
+        onWorldBorderClosing(event, Match.timer, Match.match);
+    }
 
-        // onTimerActive
+    private static void onTimerActive(ServerTickEvent event, Timer timer) {
         if (timer.isActive()) {
             timer.incrementTimer();
             timer.timerMessage(event);
             timer.resetTimer(event);
         }
+    }
 
-        // onWorldBorderClosing
+    private static void onWorldBorderClosing(ServerTickEvent event, Timer timer, Match match) {
         if (match.isWorldBorderClosing()) {
             timer.incrementTicksSinceWBClosing();
             // Closing border by 10 every 5 seconds

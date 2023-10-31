@@ -87,15 +87,20 @@ public class Timer {
 
     // TODO : refactor this into reset match?
     public void resetTimer(TickEvent.ServerTickEvent event) {
-        if (Match.timer.getTimerSeconds() <= 0) {
-            ServerMessage.sendAllPlayerMessage(Component.literal("A tooth is much more to be prized than a diamond.\n―Don Quixote\n\nBe the first team to reach the center of the map (" +
-                    Match.match.getStartCoordinates()[0] + ", " +
-                    Match.match.getStartCoordinates()[1] + ", " +
-                    Match.match.getStartCoordinates()[2] + ")\n\nWorld borders closing in..."),
-                    Match.match.getpList());
-            Match.timer = new Timer(false);
-            Match.match.setWorldBorderClosing(true);
-            Match.timer.setServerTicksSinceWBClosing(0);
+        Timer timer = Match.timer;
+        Match match = Match.match;
+
+        if (timer.getTimerSeconds() <= 0) {
+            ServerMessage.sendAllPlayerMessage(Component.literal("-------------------------------------------\n" +
+                    "A tooth is much more to be prized than a diamond.\n―Don Quixote\n\nBe the first team to reach the center of the map (" +
+                    match.getStartCoordinates()[0] + ", " +
+                    match.getStartCoordinates()[1] + ", " +
+                    match.getStartCoordinates()[2] + ")\n\nWorld borders closing in...\n" +
+                    "-------------------------------------------"),
+                    match.getpList());
+            timer = new Timer(false);
+            match.setWorldBorderClosing(true);
+            timer.setServerTicksSinceWBClosing(0);
 
             // TODO : Spawn chest in middle of the box
 
